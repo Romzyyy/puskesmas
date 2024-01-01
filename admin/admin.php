@@ -140,56 +140,41 @@
         <table class="table table-striped text-center">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">jenis pelayanan</th>
                     <th scope="col">hari</th>
                     <th scope="col">jam</th>
                     <th colspan="2" scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-primary">Edit</button></td>
-                    </div>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
-                    </div>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-primary">Edit</button></td>
-                    </div>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
-                    </div>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-primary">Edit</button></td>
-                    </div>
-                    <div class="col">
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
-                    </div>
-                </tr>
-            </tbody>
+            <?php
+                include "../config.php";
+                $no = 1;
+                $query = mysqli_query($conn, "select * from jadwal") or die (mysqli_error($conn));
+                while ($data = mysqli_fetch_array($query)){
+                    echo "
+                    <tbody>
+                        <tr>
+                            <th scope='row'>$no</th>
+                            <td>$data[jenis]</td>
+                            <td>$data[hari]</td>
+                            <td>$data[waktu]</td>
+                            <div class='col'>
+                                <td><button type='button' class='btn btn-primary'>Edit</button></td>
+                            </div>
+                            <div class='col'>
+                                <td><button type='button' class='btn btn-danger'>Delete</button></td>
+                            </div>
+                        </tr>
+                    </tbody>";
+                    $no++;
+                }
+                ?>
         </table>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJadwal">
             tambah jadwal
         </button>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
             <div class="modal fade" id="modalJadwal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -238,12 +223,13 @@
 </html>
 <?php
 include "../config.php";
-if (isset($_POST['savejadwal'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($conn, "INSERT INTO jadwal set 
     jenis = '$_POST[jenis]',
     hari = '$_POST[hari]',
     waktu = '$_POST[waktu]'") or die(mysqli_error($conn));
-    header("location: admin.php");
+    echo '<script>window.location.href = "admin.php";</script>';
+    exit();
 } else {
     echo "Form not submitted";
 }
