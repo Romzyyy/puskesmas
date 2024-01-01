@@ -147,29 +147,32 @@
                     <th colspan="2" scope="col"></th>
                 </tr>
             </thead>
-            <?php
+            <tbody>
+                <?php
                 include "../config.php";
                 $no = 1;
-                $query = mysqli_query($conn, "select * from jadwal") or die (mysqli_error($conn));
-                while ($data = mysqli_fetch_array($query)){
+                $query = mysqli_query($conn, "select * from jadwal") or die(mysqli_error($conn));
+                while ($data = mysqli_fetch_array($query)) {
                     echo "
-                    <tbody>
                         <tr>
                             <th scope='row'>$no</th>
                             <td>$data[jenis]</td>
                             <td>$data[hari]</td>
                             <td>$data[waktu]</td>
-                            <div class='col'>
-                                <td><button type='button' class='btn btn-primary'>Edit</button></td>
-                            </div>
-                            <div class='col'>
-                                <td><button type='button' class='btn btn-danger'>Delete</button></td>
-                            </div>
-                        </tr>
-                    </tbody>";
+                            <form action='' method='post'>
+                                <div class='col'>
+                                    <td><button type='button' class='btn btn-primary'>Edit</button></td>
+                                </div>
+                                <div class='col'>
+                                    <input type='hidden' name='id' value='{$data['id']}'>
+                                    <td><button type='submit' class='btn btn-danger' name='delete'>Delete</button></td>
+                                </div>
+                            </form>
+                        </tr>";
                     $no++;
                 }
                 ?>
+            </tbody>
         </table>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJadwal">
             tambah jadwal
@@ -223,7 +226,7 @@
 </html>
 <?php
 include "../config.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savejadwal'])) {
     mysqli_query($conn, "INSERT INTO jadwal set 
     jenis = '$_POST[jenis]',
     hari = '$_POST[hari]',
@@ -232,5 +235,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 } else {
     echo "Form not submitted";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+    $id = $_POST['id'];
+
+    // Hapus data dari database berdasarkan ID
+    mysqli_query($conn, "DELETE FROM jadwal WHERE id = $id") or die(mysqli_error($conn));
+
+    // Redirect kembali ke halaman admin.php setelah menghapus data
+    echo '<script>window.location.href = "admin.php";</script>';
+    exit();
+} else {
+    echo "Invalid request";
 }
 ?>
