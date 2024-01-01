@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,36 +189,38 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJadwal">
             tambah jadwal
         </button>
-        <div class="modal fade" id="modalJadwal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah jadwal</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <select class="form-select" aria-label="Default select example" name="jenis">
-                            <option selected>pilih jenis pelayanan</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">hari</label>
-                            <input type="text" class="form-control" id="title" placeholder="title name" name="hari">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="modalJadwal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah jadwal</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">jam</label>
-                            <input type="text" class="form-control" id="title" placeholder="title name" name="waktu">
+                        <div class="modal-body">
+                            <select class="form-select" id="jenis" aria-label="Default select example" name="jenis">
+                                <option selected>pilih jenis pelayanan</option>
+                                <option value="rawat jalan">rawat jalan</option>
+                                <option value="rawat inap">rawat inap</option>
+                                <option value="chek darah">chek darah</option>
+                            </select>
+                            <div class="mb-3">
+                                <label for="hari" class="form-label">hari</label>
+                                <input type="text" class="form-control" id="hari" placeholder="title name" name="hari">
+                            </div>
+                            <div class="mb-3">
+                                <label for="waktu" class="form-label">jam</label>
+                                <input type="text" class="form-control" id="waktu" placeholder="title name" name="waktu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" name="savejadwal">Save</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="savejadwal">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div id="contact" class="card text-center mt-5">
@@ -236,12 +237,14 @@
 
 </html>
 <?php
-require_once('../config.php');
-if(isset($_POST['savejadwal'])){
+include "../config.php";
+if (isset($_POST['savejadwal'])) {
     mysqli_query($conn, "INSERT INTO jadwal set 
     jenis = '$_POST[jenis]',
     hari = '$_POST[hari]',
-    waktu = '$_POST[waktu]'") or die (mysqli_error($conn));
+    waktu = '$_POST[waktu]'") or die(mysqli_error($conn));
     header("location: admin.php");
+} else {
+    echo "Form not submitted";
 }
 ?>
