@@ -171,36 +171,34 @@
     <p class="fs-4 fw-semibold pt-3">Sasaran</p>
     <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsa consequuntur eligendi fuga laudantium quo magnam exercitationem! Perspiciatis maxime asperiores repellat ipsam iste vel minus provident porro neque! Inventore maxime necessitatibus eveniet officiis minus architecto?</p>
     <div id="waktu" class="pt-5">
-      <p  class="fs-4 fw-semibold text-center pt-3">waktu pelayanan</p>
+      <p class="fs-4 fw-semibold text-center pt-3">waktu pelayanan</p>
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Jenis Pelayanan</th>
+            <th scope="col">Hari</th>
+            <th scope="col">Waktu</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <?php
+          include "config.php";
+          $no = 1;
+          $query = mysqli_query($conn, "select * from jadwal") or die(mysqli_error($conn));
+          while ($data = mysqli_fetch_array($query)) {
+            echo "
+              <tr>
+                <th scope='row'>$no</th>
+                  <td>$data[jenis]</td>
+                  <td>$data[hari]</td>
+                  <td>$data[waktu]</td>
+              </tr>";
+            $no++;
+          }
+          ?>
         </tbody>
-      </table><button type="button" class="btn btn-primary">Primary</button>
+      </table>
     </div>
   </div>
 
