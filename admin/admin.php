@@ -12,127 +12,101 @@
     <div class="container">
         <img src="../image/image.jpg" class="img-fluid" alt="banner">
     </div>
-    <div class="container mt-5">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGalery">
-            Add new
-        </button>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="container mt-5">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGalery">
+                Add new
+            </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="modalGalery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah galery</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">Default file input example</label>
-                            <input class="form-control" type="file" id="formFile">
+            <!-- Modal -->
+            <div class="modal fade" id="modalGalery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah galery</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">title</label>
-                            <input type="text" class="form-control" id="title" placeholder="title name">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Default file input example</label>
+                                <input class="form-control" type="file" id="formFile" name="formFile">
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">title</label>
+                                <input type="text" class="form-control" id="title" placeholder="title name" name="title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea type='text' class="form-control" id="description" rows="3" name="description"></textarea>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" rows="3"></textarea>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name='addGalery'>Save changes</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container text-center mt-5">
-            <div class="row gy-5">
-                <div class="col" data-bs-toggle="modal" data-bs-target="#modalCard">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../image/carosel1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text</p>
-                        </div>
+    </form>
+    <div class="container text-center mt-5">
+        <div class="row gy-5">
+            <?php
+            include "../config.php";
+            $query = "SELECT * FROM galery";
+            $result = mysqli_query($conn, $query);
+
+            while($image = mysqli_fetch_assoc($result)){
+                echo "
+                <div class='col' data-bs-toggle='modal' data-bs-target='#modalCard'>
+                <div class='card' style='width: 18rem; height: 15rem;'>
+                    <img src='uploads/$image[file]' class='card-img-top' alt='...' style='height: 11rem;'>
+                    <div class='card-body'>
+                        <p class='card-text'>$image[title]</p>
                     </div>
                 </div>
-                <div class="modal fade" id="modalCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit galery</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="w-full text-start">
-                                    <img src="../image/carosel1.jpg" class="card-img-top" alt="...">
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Default file input example</label>
-                                        <input class="form-control" type="file" id="formFile">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="title" class="form-label">title</label>
-                                        <input type="text" class="form-control" id="title" placeholder="title name">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" id="description" rows="3"></textarea>
-                                    </div>
+            </div>
+                ";
+            }
+            ?>
+            
+            <div class="modal fade" id="modalCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit galery</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="w-full text-start">
+                                <img src="../image/carosel1.jpg" class="card-img-top" alt="...">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Default file input example</label>
+                                    <input class="form-control" type="file" id="formFile">
                                 </div>
-                            </div>
-                            <div class="modal-footer row mt-2 mb-2 ">
-                                <div class="col">
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">title</label>
+                                    <input type="text" class="form-control" id="title" placeholder="title name">
                                 </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary">Save Changes</button>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../image/carosel2.jpg" class="card-img-top" alt="...">
-                        <div class="row mt-2 mb-2">
-                            <div class="col">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                            </div>
+                        <div class="modal-footer row mt-2 mb-2 ">
                             <div class="col">
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../image/carosel3.jpg" class="card-img-top" alt="...">
-                        <div class="row mt-2 mb-2">
                             <div class="col">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../image/carosel1.jpg" class="card-img-top" alt="...">
-                        <div class="row mt-2 mb-2">
-                            <div class="col">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div id="waktu" class="container pt-5">
@@ -262,6 +236,47 @@
 </html>
 <?php
 include "../config.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addGalery'])) {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+
+    // Handle file upload
+    $targetDir = "uploads/";
+
+    // Generate a unique filename
+    $uniqueFilename = uniqid() . "." . pathinfo($_FILES["formFile"]["name"], PATHINFO_EXTENSION);
+
+    $targetFile = $targetDir . $uniqueFilename;
+
+    // Check for file upload errors
+    if ($_FILES["formFile"]["error"] > 0) {
+        echo "Terjadi kesalahan saat mengunggah file: " . $_FILES["formFile"]["error"];
+        exit();
+    }
+
+    // Check if file is selected
+    if (!empty($_FILES["formFile"]["name"])) {
+        if (move_uploaded_file($_FILES["formFile"]["tmp_name"], $targetFile)) {
+            // File uploaded successfully, now insert data into the database
+            // Hanya menyimpan nama file ke database, bukan nama lengkapnya
+            $query = "INSERT INTO galery (title, description, file) VALUES ('$title', '$description', '$uniqueFilename')";
+            if (mysqli_query($conn, $query)) {
+                // Close the modal after successful data insertion
+                echo '<script>window.location.href = "admin.php";</script>';
+                exit();
+            } else {
+                echo "Error inserting data into the database: " . mysqli_error($conn);
+            }
+        } else {
+            echo "Maaf, terjadi kesalahan saat mengunggah file Anda.";
+        }
+    } else {
+        echo "Silakan pilih file.";
+    }
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savejadwal'])) {
     mysqli_query($conn, "INSERT INTO jadwal set 
     jenis = '$_POST[jenis]',

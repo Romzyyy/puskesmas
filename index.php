@@ -78,21 +78,30 @@
   <div id="identitas" class="container pt-5">
     <div>
       <p class="fs-4 fw-semibold pt-3">IDENTITAS</p>
-      <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsa consequuntur eligendi fuga laudantium quo magnam exercitationem! Perspiciatis maxime asperiores repellat ipsam iste vel minus provident porro neque! Inventore maxime necessitatibus eveniet officiis minus architecto? Cum quisquam vero vitae reprehenderit saepe velit nesciunt dolorum culpa asperiores perferendis suscipit, sit consectetur totam ad vel sunt laborum quaerat architecto officiis nobis voluptatem exercitationem laboriosam tenetur? Amet cum harum quo sunt aut porro delectus, neque modi velit dolorum qui ratione provident deserunt nesciunt?</p>
+      <p class="fs-5">PUSKESMAS Pembantu Lalangon
+        2VC6+XF4, Jalan Raya, Ganjur, Lalangon, Manding, Sumenep Regency, East Java 69452, Indonesia
+        Kabupaten Sumenep, Jawa Timur, 69452.</p>
+      <p class="fs-5">Adanya Puskesmas Pembantu ini, menjadi bukti pentingnya kolaborasi lintas sektor termasuk dengan pihak swasta dalam kerangka pembangunan sektor kesehatan di tanah air. Mengingat sektor kesehatan turut berpengaruh untuk menjaga stabilitas perekonomian nasional. Kesehatan penting untuk menjaga perekonomian supaya tidak turun.</p>
+      <p class="fs-5">Karenanya semuanya harus inklusif, saling berkolaborasi antara pemerintah, swasta dan organisasi kemasyarakatan. Kita tidak akan berhasil kalau pendekatannya ada pada program, harus memiliki pendekatan gerakan. Dengan adanya bantuan pembangunan Puskesmas Pembantu (Pustu), Menkes menyampaikan ucapan terima kasih kepada seluruh pihak yang telah berkontribusi bagi penyelesaian masalah kesehatan di Kec. Manding Kedepan, Menkes berharap kegiatan serupa bisa dilanjutkan di daerah lain di seluruh Indonesia.</p>
     </div>
     <div id="visi" class="row text-center pt-5">
       <div class="col">
         <p class="fs-3 fw-semibold pt-3">Visi</p>
-        <p class="fs-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias, qui est ut neque consectetur deserunt cupiditate! Modi tenetur veniam dignissimos, volcom voluptatum fuga atque autem. Porro officia reprehenderit unde. Nobis, corrupti.</p>
+        <p class="fs-5">Sumenep Unggul, Mandiri dan Sejahtera Bidang Kesehatan.</p>
       </div>
       <div class="col">
         <p class="fs-3 fw-semibold pt-3">Misi</p>
-        <p class="fs-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias, qui est ut neque consectetur deserunt cupiditate! Modi tenetur veniam dignissimos, skal sljsaj jlasjl voluptatum fuga atque autem. Porro officia reprehenderit unde. Nobis, corrupti.</p>
+        <p class="fs-5 text-start">1. Membangun Kualitas Unggul dalam Sumber Daya Manusia di Bidang Administrasi dan Manajemen (Admen), Upaya Kesehatan Masyarakat (UKM), dan Upaya Kesehatan Perorangan (UKP).</p>
+        <p class="fs-5 text-start">2. Melaksanakan proses Manajemen yang Berkesinambungan.</p>
+        <p class="fs-5 text-start">3. Meningkatkan Sarana dan Prasarana.</p>
+        <p class="fs-5 text-start">4. Mengutamakan Kerjasama tim dan Gotong Royong dalam Melaksanakan Program Kerja Puskesmas.</p>
+        <p class="fs-5 text-start">5. Memperkuat Kerjasama Lintas Sektor dalam Membangun Kesehatan masyarakat.</p>
+        <p class="fs-5 text-start">6. Membagun Kemandirian Masyarakat Hidup Sehat.</p>
       </div>
     </div>
     <div id="motto" class="text-center pt-5">
       <p class="fs-4 fw-semibold pt-3">Motto</p>
-      <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsa consequuntur eligendi fuga laudantium quo magnam exercitationem! Perspiciatis maxime asperiores repellat ipsam iste vel minus provident porro neque! Inventore maxime necessitatibus eveniet officiis minus architecto?</p>
+      <p class="fs-5">Bismillah Melayani dengan hati, anda sehat kami puas.</p>
     </div>
   </div>
 
@@ -169,7 +178,8 @@
   <!-- pelayanan -->
   <div id="sasaran" class="container pt-5">
     <p class="fs-4 fw-semibold pt-3">Sasaran</p>
-    <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsa consequuntur eligendi fuga laudantium quo magnam exercitationem! Perspiciatis maxime asperiores repellat ipsam iste vel minus provident porro neque! Inventore maxime necessitatibus eveniet officiis minus architecto?</p>
+    <p class="fs-5">UKP : Pasien/klien yang membutuhkan pelayanan pengobatan / pelayanan konseling</p>
+    <p class="fs-5">UKM : Masyarakat sesuai dengan tujuan kegiatan program</p>
     <div id="waktu" class="pt-5">
       <p class="fs-4 fw-semibold text-center pt-3">waktu pelayanan</p>
       <table class="table table-striped text-center">
