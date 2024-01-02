@@ -159,16 +159,52 @@
                             <td>$data[jenis]</td>
                             <td>$data[hari]</td>
                             <td>$data[waktu]</td>
+                            <div class='col'>
+                                 <td><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editModal{$data['id']}'>Edit</button></td>
+                            </div>
                             <form action='' method='post'>
-                                <div class='col'>
-                                    <td><button type='button' class='btn btn-primary'>Edit</button></td>
-                                </div>
                                 <div class='col'>
                                     <input type='hidden' name='id' value='{$data['id']}'>
                                     <td><button type='submit' class='btn btn-danger' name='delete'>Delete</button></td>
                                 </div>
                             </form>
-                        </tr>";
+                        </tr>
+                        
+                        <!-- Edit Modal -->
+                        <form action='' method='post'>
+                            <div class='modal fade' id='editModal{$data['id']}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                            <div class='modal-dialog modal-dialog-centered'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h1 class='modal-title fs-5' id='exampleModalLabel'>Tambah jadwal</h1>
+                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <input type='hidden' name='id' value='{$data['id']}'>
+                                        <select class='form-select' id='jenis' aria-label='Default select example' name='jenis' value='{$data['jenis']}>
+                                            <option selected>pilih jenis pelayanan</option>
+                                            <option value='rawat jalan'>rawat jalan</option>
+                                            <option value='rawat inap'>rawat inap</option>
+                                            <option value='chek darah'>chek darah</option>
+                                        </select>
+                                        <div class='mb-3'>
+                                            <label for='hari' class='form-label'>hari</label>
+                                            <input type='text' class='form-control' id='hari' placeholder='title name' name='hari' value='{$data['hari']}'>
+                                        </div>
+                                        <div class='mb-3'>
+                                            <label for='waktu' class='form-label'>jam</label>
+                                            <input type='text' class='form-control' id='waktu' placeholder='title name' name='waktu' value='{$data['waktu']}'>
+                                        </div>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                                            <button type='submit' class='btn btn-primary' name='update'>Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        ";
                     $no++;
                 }
                 ?>
@@ -248,5 +284,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     exit();
 } else {
     echo "Invalid request";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
+    $id = $_POST['id']; // Use $_POST instead of $_GET for security reasons
+
+    // Fetch the data based on the ID
+    $query = mysqli_query($conn, "SELECT * FROM jadwal WHERE id = $id") or die(mysqli_error($conn));
+    $data = mysqli_fetch_array($query);
+
+    // Perform update operation
+    // Replace the following lines with your actual update logic
+    $newJenis = $_POST['jenis'];
+    $newHari = $_POST['hari'];
+    $newWaktu = $_POST['waktu'];
+
+    mysqli_query($conn, "UPDATE jadwal SET jenis='$newJenis', hari='$newHari', waktu='$newWaktu' WHERE id=$id") or die(mysqli_error($conn));
+
+    // Redirect to admin.php after update
+    echo '<script>window.location.href = "admin.php";</script>';
+    exit();
+} else {
+    echo "Invalid edit";
 }
 ?>

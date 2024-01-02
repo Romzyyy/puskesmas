@@ -172,7 +172,7 @@
     <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsa consequuntur eligendi fuga laudantium quo magnam exercitationem! Perspiciatis maxime asperiores repellat ipsam iste vel minus provident porro neque! Inventore maxime necessitatibus eveniet officiis minus architecto?</p>
     <div id="waktu" class="pt-5">
       <p class="fs-4 fw-semibold text-center pt-3">waktu pelayanan</p>
-      <table class="table table-striped">
+      <table class="table table-striped text-center">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -192,7 +192,7 @@
                 <th scope='row'>$no</th>
                   <td>$data[jenis]</td>
                   <td>$data[hari]</td>
-                  <td>$data[waktu]</td>
+                  <td>$data[waktu] WIB</td>
               </tr>";
             $no++;
           }
