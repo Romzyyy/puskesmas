@@ -31,6 +31,9 @@
               <li><a class="dropdown-item" href="#motto">Motto</a></li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a class="nav-link fs-5" href="#informasi">Informasi</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Pelayanan
@@ -39,9 +42,6 @@
               <li><a class="dropdown-item" href="#sasaran">Sasaran</a></li>
               <li><a class="dropdown-item" href="#waktu">Waktu Pelayanan</a></li>
             </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link fs-5" href="#informasi">Informasi</a>
           </li>
           <li class="nav-item">
             <a class="nav-link fs-5" href="#contact">Contact</a>
@@ -55,13 +55,13 @@
   <div id="carouselExampleAutoplaying" class="container carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner ratio ratio-16x9">
       <div class="carousel-item active">
-        <img src="./image/carosel1.jpg" class="w-100" alt="carosel">
+        <img src="./image/carosel1.avif" class="w-100" alt="carosel">
       </div>
       <div class="carousel-item">
-        <img src="./image/carosel2.jpg" class="w-100" alt="carosel">
+        <img src="./image/carosel2.avif" class="w-100" alt="carosel">
       </div>
       <div class="carousel-item">
-        <img src="./image/carosel3.jpg" class="w-100" alt="carosel">
+        <img src="./image/carosel3.avif" class="w-100" alt="carosel">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -106,72 +106,47 @@
   </div>
 
   <!-- galery foto -->
-  <div class="container text-center mt-5">
-    <div class="row gy-5">
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;">
-          <img src="./image/carosel3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">Some quick example text</p>
-          </div>
-        </div>
-      </div>
+  <div class="container text-center pt-5" id="informasi">
+    <div class="row gy-5 pt-5">
+      <?php
+      include "config.php";
+      $query = "SELECT * FROM galery";
+      $result = mysqli_query($conn, $query);
+
+      while ($image = mysqli_fetch_assoc($result)) {
+        echo "
+                <div class='col' role='button' data-bs-toggle='modal' data-bs-target='#modalCard{$image['id']}'>
+                <div class='card' style='width: 18rem; height: 15rem;'>
+                    <img src='admin/uploads/$image[file]' class='card-img-top' alt='...' style='height: 11rem;'>
+                    <div class='card-body'>
+                        <p class='card-text'>$image[title]</p>
+                    </div>
+                </div>
+            </div>
+            <div class='modal fade' id='modalCard{$image['id']}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <form action='' method='post'  enctype='multipart/form-data'>
+            <input type='hidden' name='id' value='{$image['id']}'>
+                <div class='modal-dialog modal-dialog-centered'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h1 class='modal-title fs-5' id='exampleModalLabel'>$image[title]</h1>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='w-full text-start'>
+                                <img src='admin/uploads/$image[file]' class='card-img-top' alt='...'>
+                                <div class='card-body'>
+                                  <p class='card-text text-start mt-4'>$image[description]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+                ";
+      }
+      ?>
     </div>
   </div>
 
@@ -213,15 +188,15 @@
   </div>
 
   <!-- maps -->
-  <div id="informasi" class="container ratio ratio-21x9 mt-5">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2685030471307!2d113.85863397587424!3d-6.977612993023161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd9e5e2d4f03ced%3A0x95229aa3899310a!2sPUSKESMAS%20Pembantu%20Lalangon!5e0!3m2!1sid!2sid!4v1703507478593!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div id="contact" class="container ratio ratio-21x9 mt-5 mb-5" style="height: 40rem;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2685030471307!2d113.85863397587424!3d-6.977612993023161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd9e5e2d4f03ced%3A0x95229aa3899310a!2sPUSKESMAS%20Pembantu%20Lalangon!5e0!3m2!1sid!2sid!4v1703507478593!5m2!1sid!2sid" width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 
   <!-- footer -->
-  <div id="contact" class="card text-center">
+  <div class="card text-center mt-5">
     <div class="card-body">
       <h5 class="card-title">Puskesmas Pembantu Lalangon</h5>
-      <p class="container card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia fugiat aspernatur facere minus illo consectetur repudiandae placeat eum sed? Debitis, nemo earum totam voluptate laboriosam molestias reprehenderit quisquam neque placeat?</p>
+      <p class="container card-text">PUSKESMAS Pembantu Lalangon 2VC6+XF4, Jalan Raya, Ganjur, Lalangon, Manding, Sumenep Regency, East Java 69452. <br> Bismillah Melayani dengan hati, anda sehat kami puas.</p>
     </div>
     <div class="card-footer text-body-secondary">
       <p>&copy; copyright 2023 </p>

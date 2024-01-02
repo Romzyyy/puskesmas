@@ -10,7 +10,7 @@
 
 <body>
     <div class="container">
-        <img src="../image/image.jpg" class="img-fluid" alt="banner">
+        <img src="../image/carosel3.avif" class="img-fluid" alt="banner">
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="container mt-5">
@@ -49,64 +49,70 @@
                 </div>
             </div>
     </form>
+
     <div class="container text-center mt-5">
-        <div class="row gy-5">
+        <div class='row gy-5'>
             <?php
             include "../config.php";
             $query = "SELECT * FROM galery";
             $result = mysqli_query($conn, $query);
-
-            while($image = mysqli_fetch_assoc($result)){
+            
+            while ($image = mysqli_fetch_assoc($result)) {
                 echo "
-                <div class='col' data-bs-toggle='modal' data-bs-target='#modalCard'>
-                <div class='card' style='width: 18rem; height: 15rem;'>
-                    <img src='uploads/$image[file]' class='card-img-top' alt='...' style='height: 11rem;'>
-                    <div class='card-body'>
-                        <p class='card-text'>$image[title]</p>
+                <div class='col' role='button' data-bs-toggle='modal' data-bs-target='#modalCard{$image['id']}'>
+                    <div class='card' style='width: 18rem;'>
+                        <img src='uploads/$image[file]' class='card-img-top' alt='...' style='height: 11rem;'>
+                        <div class='card-body'>
+                            <p class='card-text'>$image[title]</p>
+                            <p class='card-text text-start'>$image[description]</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            
+                <!-- Edit Modal -->
+            
+                <div class='modal fade' id='modalCard{$image['id']}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <form action='admin.php' method='post' enctype='multipart/form-data'>
+                        <input type='hidden' name='imgId' value='{$image['id']}'>
+                        <div class='modal-dialog modal-dialog-centered'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h1 class='modal-title fs-5' id='exampleModalLabel'>Edit galery</h1>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                </div>
+                                <div class='modal-body'>
+                                    <div class='w-full text-start'>
+                                        <img src='uploads/$image[file]' class='card-img-top' alt='...'>
+                                        <div class='mb-3'>
+                                            <label for='imageFile' class='form-label'>Default file input example</label>
+                                            <input class='form-control' type='file' id='imageFile' name='formFile'>
+                                        </div>
+                                        <div class='mb-3'>
+                                            <label for='title' class='form-label'>title</label>
+                                            <input type='text' class='form-control' id='title' placeholder='title name' name='title' value='{$image['title']}'>
+                                        </div>
+                                        <div class='mb-3'>
+                                            <label for='description' class='form-label'>Description</label>
+                                            <textarea class='form-control' id='description' rows='3' name='description'>$image[description]</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='modal-footer row mt-2 mb-2 '>
+                                    <div class='col'>
+                                        <button type='submit' class='btn btn-danger' name='imgDelete' value='delete'>Delete</button>
+                                    </div>
+                                    <div class='col'>
+                                        <button type='submit' class='btn btn-primary' name='imgUpdate'>Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 ";
             }
             ?>
-            
-            <div class="modal fade" id="modalCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit galery</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="w-full text-start">
-                                <img src="../image/carosel1.jpg" class="card-img-top" alt="...">
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">Default file input example</label>
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="title" class="form-label">title</label>
-                                    <input type="text" class="form-control" id="title" placeholder="title name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer row mt-2 mb-2 ">
-                            <div class="col">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
     </div>
 
     <div id="waktu" class="container pt-5">
@@ -157,9 +163,11 @@
                                         <input type='hidden' name='id' value='{$data['id']}'>
                                         <select class='form-select' id='jenis' aria-label='Default select example' name='jenis' value='{$data['jenis']}>
                                             <option selected>pilih jenis pelayanan</option>
-                                            <option value='rawat jalan'>rawat jalan</option>
-                                            <option value='rawat inap'>rawat inap</option>
-                                            <option value='chek darah'>chek darah</option>
+                                            <option value='pemeriksaan kesehatan umum'>pemeriksaan kesehatan umum</option>
+                                            <option value='pemeriksaan kesehatan ibu dan anak'>pemeriksaan kesehatan ibu dan anak</option>
+                                            <option value='pelayanan KB'>pelayanan KB</option>
+                                            <option value='pemeriksaan IVA'>pemeriksaan IVA</option>
+                                            <option value='cek gula darah, kolstrol, asam urat'>cek gula darah, kolstrol, asam urat</option>
                                         </select>
                                         <div class='mb-3'>
                                             <label for='hari' class='form-label'>hari</label>
@@ -198,17 +206,19 @@
                         <div class="modal-body">
                             <select class="form-select" id="jenis" aria-label="Default select example" name="jenis">
                                 <option selected>pilih jenis pelayanan</option>
-                                <option value="rawat jalan">rawat jalan</option>
-                                <option value="rawat inap">rawat inap</option>
-                                <option value="chek darah">chek darah</option>
+                                <option value='pemeriksaan kesehatan umum'>pemeriksaan kesehatan umum</option>
+                                <option value='pemeriksaan kesehatan ibu dan anak'>pemeriksaan kesehatan ibu dan anak</option>
+                                <option value='pelayanan KB'>pelayanan KB</option>
+                                <option value='pemeriksaan IVA'>pemeriksaan IVA</option>
+                                <option value='cek gula darah, kolstrol, asam urat'>cek gula darah, kolstrol, asam urat</option>
                             </select>
                             <div class="mb-3">
                                 <label for="hari" class="form-label">hari</label>
-                                <input type="text" class="form-control" id="hari" placeholder="title name" name="hari">
+                                <input type="text" class="form-control" id="hari" placeholder="hari" name="hari">
                             </div>
                             <div class="mb-3">
                                 <label for="waktu" class="form-label">jam</label>
-                                <input type="text" class="form-control" id="waktu" placeholder="title name" name="waktu">
+                                <input type="text" class="form-control" id="waktu" placeholder="waktu" name="waktu">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -224,7 +234,7 @@
     <div id="contact" class="card text-center mt-5">
         <div class="card-body">
             <h5 class="card-title">Puskesmas Pembantu Lalangon</h5>
-            <p class="container card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia fugiat aspernatur facere minus illo consectetur repudiandae placeat eum sed? Debitis, nemo earum totam voluptate laboriosam molestias reprehenderit quisquam neque placeat?</p>
+            <p class="container card-text">PUSKESMAS Pembantu Lalangon 2VC6+XF4, Jalan Raya, Ganjur, Lalangon, Manding, Sumenep Regency, East Java 69452. <br> Bismillah Melayani dengan hati, anda sehat kami puas.</p>
         </div>
         <div class="card-footer text-body-secondary">
             <p>&copy; copyright 2023 </p>
@@ -271,10 +281,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addGalery'])) {
         } else {
             echo "Maaf, terjadi kesalahan saat mengunggah file Anda.";
         }
-    } else {
-        echo "Silakan pilih file.";
     }
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Cek apakah tombol imgUpdate ditekan
+    if (isset($_POST['imgUpdate'])) {
+        $id = $_POST['imgId'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+
+        // Handle file upload
+        $targetDir = "uploads/";
+
+        // Cek apakah ada file yang dipilih
+        if (!empty($_FILES["formFile"]["name"])) {
+            $uniqueFilename = uniqid() . "." . pathinfo($_FILES["formFile"]["name"], PATHINFO_EXTENSION);
+            $targetFile = $targetDir . $uniqueFilename;
+
+            if ($_FILES["formFile"]["error"] > 0) {
+                echo "Terjadi kesalahan saat mengunggah file: " . $_FILES["formFile"]["error"];
+                exit();
+            }
+
+            // Pindahkan file yang diunggah
+            if (move_uploaded_file($_FILES["formFile"]["tmp_name"], $targetFile)) {
+                // File diunggah dengan sukses, sekarang update data di database
+                $query = "UPDATE galery SET title='$title', description='$description', file='$uniqueFilename' WHERE id = $id";
+                if (mysqli_query($conn, $query)) {
+                    // Redirect atau perbarui halaman sesuai kebutuhan
+                    header("Location: admin.php");
+                    exit();
+                } else {
+                    echo "Error updating data in the database: " . mysqli_error($conn);
+                }
+            } else {
+                echo "Maaf, terjadi kesalahan saat mengUpdate file Anda.";
+            }
+        } else {
+            // Jika tidak ada file baru yang dipilih, update data tanpa mengganti file
+            $query = "UPDATE galery SET title='$title', description='$description' WHERE id = $id";
+            if (mysqli_query($conn, $query)) {
+                // Redirect atau perbarui halaman sesuai kebutuhan
+                echo '<script>window.location.href = "admin.php";</script>';
+                exit();
+            } else {
+                echo "Error updating data in the database: " . mysqli_error($conn);
+            }
+        }
+    }
+
+    // Cek apakah tombol imgDelete ditekan
+    if (isset($_POST['imgDelete'])) {
+        $deleteImg_id = $_POST['imgId'];
+
+        // Lakukan query untuk menghapus data dari database
+        $deleteQuery = "DELETE FROM galery WHERE id = $deleteImg_id";
+
+        if (mysqli_query($conn, $deleteQuery)) {
+            echo '<script>window.location.href = "admin.php";</script>';
+            exit();
+        } else {
+            echo "Error deleting data from the database: " . mysqli_error($conn);
+        }
+    }
+}
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savejadwal'])) {
@@ -284,8 +356,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savejadwal'])) {
     waktu = '$_POST[waktu]'") or die(mysqli_error($conn));
     echo '<script>window.location.href = "admin.php";</script>';
     exit();
-} else {
-    echo "Form not submitted";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
@@ -297,8 +367,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     // Redirect kembali ke halaman admin.php setelah menghapus data
     echo '<script>window.location.href = "admin.php";</script>';
     exit();
-} else {
-    echo "Invalid request";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
@@ -319,7 +387,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Redirect to admin.php after update
     echo '<script>window.location.href = "admin.php";</script>';
     exit();
-} else {
-    echo "Invalid edit";
 }
 ?>
