@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,7 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
+            $_SESSION['username'] = $username; // Set session
             header("Location: admin/admin.php");
+            exit();
         } else {
             echo "Invalid password!";
         }
@@ -21,7 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,13 +48,13 @@ $conn->close();
                             <div class="mb-md-5 mt-md-4 pb-5">
                                 <h2 class="fw-bold mb-2 text-uppercase text-center">Login</h2>
                                 <p class="text-white-50 mb-5 text-center">Please enter your login and password!</p>
-                                <?php 
-	                              if(isset($_GET['pesan'])){
-		                              if($_GET['pesan']=="gagal"){
-			                                echo "<div class='alert'>Username dan Password tidak sesuai !</div>";
-		                              }
-	                              }
-	                          ?>
+                                <?php
+                                if (isset($_GET['pesan'])) {
+                                    if ($_GET['pesan'] == "gagal") {
+                                        echo "<div class='alert'>Username dan Password tidak sesuai !</div>";
+                                    }
+                                }
+                                ?>
                                 <div class="form-outline form-white mb-4">
                                     <label class="form-label" for="username">username</label>
                                     <input type="text" id="username" name="username" class="form-control form-control-lg" />

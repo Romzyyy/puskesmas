@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Periksa apakah pengguna telah login
+if (!isset($_SESSION['username'])) {
+    header("Location: ../login.php"); // Ganti dengan halaman login yang benar
+    exit();
+}
+
+// Sisanya dari kode admin.php
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +20,38 @@
 </head>
 
 <body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+            <a class="navbar-brand">PUSTU LALANGON</a>
+            <div>
+                <a href="../logout.php"><button class="btn btn-secondary">Logout</button></a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
-        <img src="../image/carosel3.avif" class="img-fluid" alt="banner">
+        <div id="carouselExampleAutoplaying" class="container carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner ratio ratio-16x9">
+                <div class="carousel-item active">
+                    <img src="../image/carosel1.avif" class="w-100" alt="carosel">
+                </div>
+                <div class="carousel-item">
+                    <img src="../image/carosel2.avif" class="w-100" alt="carosel">
+                </div>
+                <div class="carousel-item">
+                    <img src="../image/carosel3.avif" class="w-100" alt="carosel">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
+
     <form action="" method="post" enctype="multipart/form-data">
         <div class="container mt-5">
             <!-- Button trigger modal -->
@@ -56,7 +96,7 @@
             include "../config.php";
             $query = "SELECT * FROM galery";
             $result = mysqli_query($conn, $query);
-            
+
             while ($image = mysqli_fetch_assoc($result)) {
                 echo "
                 <div class='col' role='button' data-bs-toggle='modal' data-bs-target='#modalCard{$image['id']}'>
